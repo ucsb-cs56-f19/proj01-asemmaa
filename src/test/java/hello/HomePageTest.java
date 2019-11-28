@@ -1,4 +1,3 @@
-
 package hello;
 
 // import static org.hamcrest.Matchers.equalTo;
@@ -20,11 +19,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(WebController.class)
 public class HomePageTest {
-
-
 
     @Autowired
     private MockMvc mvc;
@@ -33,9 +31,7 @@ public class HomePageTest {
     private AuthControllerAdvice aca;
    
     @MockBean
-    private ClientRegistrationRepository crr;
-   
-   
+    private ClientRegistrationRepository crr;   
 
     @Test
     public void getHomePage_ContentType() throws Exception {
@@ -53,7 +49,7 @@ public class HomePageTest {
         for (String s: BootstrapLiterals.bootstrapJSurls) {
             String jsXPath = String.format("//script[@src='%s']",s);
             mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
-              .andExpect(status().isOk()) 
+              .andExpect(status().isOk())
               .andExpect(xpath(jsXPath).exists());
         }
     }
@@ -66,6 +62,8 @@ public class HomePageTest {
                 .andExpect(xpath("//title").exists())
                 .andExpect(xpath("//title").string("CS56 Spring Boot Practice App"));
     }
+
+
     @Test
     public void getHomePage_hasCorrectBrand() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
@@ -73,11 +71,14 @@ public class HomePageTest {
                 .andExpect(xpath("/html/body/div/nav/a").exists())
                 .andExpect(xpath("/html/body/div/nav/a").string("lab07"));
     }
+
     @Test
-    public void getHomePage_hasCorrect_Earthquakes() throws Exception {
+    public void getHomePage_hasCorrectTextForLink1() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[2]/a").exists())
-                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[2]/a").string("Earthquake Search"));
+                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[2]/a").string("Earthquakes"))
+                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[3]/a").exists())
+                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[3]/a").string("Users"));
     }
 }
