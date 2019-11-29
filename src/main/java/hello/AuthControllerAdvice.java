@@ -5,21 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import java.util.List;
-import hello.entities.*;
-import hello.repositories.*;
-import hello.entities.AppUser;
 import hello.repositories.UserRepository;
-
+import hello.entities.AppUser;
+import java.util.List;
 
 @ControllerAdvice
 public class AuthControllerAdvice {
+    @Autowired   
+    private UserRepository userRepository;
 
     @Autowired   
     private MembershipService membershipService;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @ModelAttribute("isLoggedIn")
     public boolean getIsLoggedIn(OAuth2AuthenticationToken token){
@@ -29,7 +25,7 @@ public class AuthControllerAdvice {
     @ModelAttribute("id")
     public String getUid(OAuth2AuthenticationToken token){
         if (token == null) return "";
-        
+
         String uid = token.getPrincipal().getAttributes().get("id").toString();
 
         List<AppUser> users = userRepository.findByUid(uid);
@@ -68,4 +64,7 @@ public class AuthControllerAdvice {
         return token.getPrincipal().getAttributes().get("login").toString();
     }
 
+    // private String token3login(OAuth2AuthenticationToken token) {
+    //     return token.getPrincipal().getAttributes().get("id").toString();
+    // }
 }

@@ -1,6 +1,8 @@
 package hello;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-// import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,14 +16,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
 
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(WebController.class)
+// @SpringBootTest
+// @AutoConfigureMockMvc
 public class HomePageTest {
 
     @Autowired
@@ -29,9 +29,9 @@ public class HomePageTest {
 
     @MockBean
     private AuthControllerAdvice aca;
-   
+
     @MockBean
-    private ClientRegistrationRepository crr;   
+    private ClientRegistrationRepository crr;
 
     @Test
     public void getHomePage_ContentType() throws Exception {
@@ -63,7 +63,6 @@ public class HomePageTest {
                 .andExpect(xpath("//title").string("CS56 Spring Boot Practice App"));
     }
 
-
     @Test
     public void getHomePage_hasCorrectBrand() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
@@ -73,12 +72,18 @@ public class HomePageTest {
     }
 
     @Test
-    public void getHomePage_hasCorrectTextForLink1() throws Exception {
+    public void getHomePage_hasCorrectEarthquakes() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[2]/a").exists())
-                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[2]/a").string("Earthquakes"))
-                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[3]/a").exists())
-                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[3]/a").string("Users"));
+                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[2]/a").string("Earthquake Search"));
+    }
+
+    @Test
+    public void getHomePage_hasCorrectUsers() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[4]/a").exists())
+                .andExpect(xpath("/html/body/div/nav/div/ul[1]/li[4]/a").string("Users"));
     }
 }
