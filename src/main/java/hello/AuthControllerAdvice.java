@@ -11,6 +11,7 @@ import java.util.List;
 
 @ControllerAdvice
 public class AuthControllerAdvice {
+
     @Autowired   
     private UserRepository userRepository;
 
@@ -63,8 +64,4 @@ public class AuthControllerAdvice {
     private String token2login(OAuth2AuthenticationToken token) {
         return token.getPrincipal().getAttributes().get("login").toString();
     }
-
-    // private String token3login(OAuth2AuthenticationToken token) {
-    //     return token.getPrincipal().getAttributes().get("id").toString();
-    // }
 }
