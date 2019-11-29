@@ -4,6 +4,10 @@ https://ucsb-cs56-f19.github.io/lab07-asemmaa/
 Heroku App
 https://cs56-f19-lab07-asemmaa.herokuapp.com/
 
+Travis CI 
+
+https://travis-ci.org/ucsb-cs56-f19/lab07-asemmaa?utm_medium=notification&utm_source=github_status
+
 
 A simple Spring Boot webapp using:
 * Thymeleaf templating
