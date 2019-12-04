@@ -47,6 +47,7 @@ public class HomePageTest {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(xpath(BootstrapLiterals.bootstrapCSSXpath).exists());
+
         for (String s: BootstrapLiterals.bootstrapJSurls) {
             String jsXPath = String.format("//script[@src='%s']",s);
             mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
@@ -76,9 +77,19 @@ public class HomePageTest {
     public void getHomePage_hasCorrectLink() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(xpath("/html/body/div/nav/div/ul/li[2]/a").exists())
-                .andExpect(xpath("/html/body/div/nav/div/ul/li[2]/a").string("Earthquake Search"));
+                .andExpect(xpath("/html/body/div/nav/div/ul/li[1]/a").exists())
+                .andExpect(xpath("/html/body/div/nav/div/ul/li[1]/a").string("Earthquake Search"));
+                
     }
+    @Test
+    public void getHomePage_hasLocationLink() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(xpath("/html/body/div/nav/div/ul/li[2]/a").exists())
+                .andExpect(xpath("/html/body/div/nav/div/ul/li[2]/a").string("Locations"));
+                
+    }
+
 
     @Test
     public void getHomePage_hasCorrectLinkToUsers() throws Exception {
