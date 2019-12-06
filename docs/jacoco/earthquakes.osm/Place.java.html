@@ -20,19 +20,27 @@ import java.util.List;
     public String display_name;
     public String type;
 
+     /**
+     * Create a list of Place objects from json representation
+     * 
+     * @param json String of json returned by API endpoint {@code /classes/search}
+     * @return a new List of Place objects 
+     * @see &lt;a href=
+     *      &quot;https://stackoverflow.com/a/6349488&quot;&gt;https://stackoverflow.com/a/6349488&lt;/a&gt;
+     */
     public static List&lt;Place&gt; listFromJson(String json) {
         try {
-<span class="nc" id="L25">            ObjectMapper objectMapper = new ObjectMapper();</span>
-<span class="nc" id="L26">            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
-<span class="nc" id="L27">            List&lt;Place&gt; placeObjects = objectMapper.readValue(json, new TypeReference&lt;List&lt;Place&gt;&gt;(){});</span>
+<span class="nc" id="L33">            ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="nc" id="L34">            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
+<span class="nc" id="L35">            List&lt;Place&gt; placeObjects = objectMapper.readValue(json, new TypeReference&lt;List&lt;Place&gt;&gt;(){});</span>
 
-<span class="nc" id="L29">            return placeObjects;</span>
-<span class="nc" id="L30">        } catch (JsonProcessingException jpe) {</span>
-<span class="nc" id="L31">            logger.error(&quot;JsonProcessingException:&quot; + jpe);</span>
-<span class="nc" id="L32">            return null;</span>
-<span class="nc" id="L33">        } catch (Exception e) {</span>
-<span class="nc" id="L34">            logger.error(&quot;Exception:&quot; + e);</span>
-<span class="nc" id="L35">            return null;</span>
+<span class="nc" id="L37">            return placeObjects;</span>
+<span class="nc" id="L38">        } catch (JsonProcessingException jpe) {</span>
+<span class="nc" id="L39">            logger.error(&quot;JsonProcessingException:&quot; + jpe);</span>
+<span class="nc" id="L40">            return null;</span>
+<span class="nc" id="L41">        } catch (Exception e) {</span>
+<span class="nc" id="L42">            logger.error(&quot;Exception:&quot; + e);</span>
+<span class="nc" id="L43">            return null;</span>
         }        
     }
 }

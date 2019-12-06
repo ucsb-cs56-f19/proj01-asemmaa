@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Map;
 import java.util.HashMap;
+import earthquakes.geojson.FeatureCollection;
 
 import com.nimbusds.oauth2.sdk.client.ClientReadRequest;
-import earthquakes.geojson.FeatureCollection;
 
 @Controller
 <span class="fc" id="L18">public class HomeController {</span>
@@ -31,13 +31,13 @@ import earthquakes.geojson.FeatureCollection;
 <span class="nc" id="L31">        Map&lt;String, String&gt; urls = new HashMap&lt;&gt;();</span>
 
         // get around an unfortunate limitation of the API
-<span class="nc" id="L34">        @SuppressWarnings(&quot;unchecked&quot;) Iterable&lt;ClientRegistration&gt; iterable = ((Iterable&lt;ClientRegistration&gt;) clientRegistrationRepository);</span>
-<span class="nc" id="L35">        iterable.forEach(clientRegistration -&gt; urls.put(clientRegistration.getClientName(),</span>
-<span class="nc" id="L36">                &quot;/oauth2/authorization/&quot; + clientRegistration.getRegistrationId()));</span>
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L35">        Iterable&lt;ClientRegistration&gt; iterable = ((Iterable&lt;ClientRegistration&gt;) clientRegistrationRepository);</span>
+<span class="nc" id="L36">        iterable.forEach(clientRegistration -&gt; urls.put(clientRegistration.getClientName(),</span>
+<span class="nc" id="L37">                &quot;/oauth2/authorization/&quot; + clientRegistration.getRegistrationId()));</span>
 
-<span class="nc" id="L38">        model.addAttribute(&quot;urls&quot;, urls);</span>
-<span class="nc" id="L39">        return &quot;login&quot;;</span>
+<span class="nc" id="L39">        model.addAttribute(&quot;urls&quot;, urls);</span>
+<span class="nc" id="L40">        return &quot;login&quot;;</span>
     }
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

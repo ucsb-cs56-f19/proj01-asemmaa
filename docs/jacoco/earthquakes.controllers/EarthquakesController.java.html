@@ -10,31 +10,35 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Map;
 import java.util.HashMap;
+
+import earthquakes.geojson.FeatureCollection;
 import earthquakes.services.EarthquakeQueryService;
 import earthquakes.searches.EqSearch;
+
 import com.nimbusds.oauth2.sdk.client.ClientReadRequest;
-import earthquakes.geojson.FeatureCollection;
 
 @Controller
-<span class="fc" id="L19">public class EarthquakesController {</span>
+<span class="fc" id="L21">public class EarthquakesController {</span>
 
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
 
     @GetMapping(&quot;/earthquakes/search&quot;)
-    public String getEarthquakesSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken, EqSearch eqSearch) {
-<span class="fc" id="L26">	return &quot;earthquakes/search&quot;;</span>
+    public String getEarthquakesSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
+            EqSearch eqSearch) {
+<span class="fc" id="L29">        return &quot;earthquakes/search&quot;;</span>
     }
 
     @GetMapping(&quot;/earthquakes/results&quot;)
-    public String getEarthquakesResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken, EqSearch eqSearch) {
-<span class="nc" id="L31">    	EarthquakeQueryService e = new EarthquakeQueryService();</span>
-<span class="nc" id="L32">    	model.addAttribute(&quot;eqSearch&quot;, eqSearch);</span>
-<span class="nc" id="L33">    	String json = e.getJSON(eqSearch.getDistance(), eqSearch.getMinmag(),eqSearch.getLat(),eqSearch.getLon());</span>
-<span class="nc" id="L34">    	model.addAttribute(&quot;json&quot;, json);</span>
-<span class="nc" id="L35">    	FeatureCollection featureCollection = FeatureCollection.fromJSON(json);</span>
-<span class="nc" id="L36">        model.addAttribute(&quot;featureCollection&quot;,featureCollection);</span>
-<span class="nc" id="L37">	return &quot;earthquakes/results&quot;;</span>
+    public String getEarthquakesResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
+            EqSearch eqSearch) {
+<span class="nc" id="L35">        EarthquakeQueryService e = new EarthquakeQueryService();</span>
+<span class="nc" id="L36">        model.addAttribute(&quot;eqSearch&quot;, eqSearch);</span>
+<span class="nc" id="L37">        String json = e.getJSON(eqSearch.getDistance(), eqSearch.getMinmag(),eqSearch.getLat(),eqSearch.getLon());</span>
+<span class="nc" id="L38">        model.addAttribute(&quot;json&quot;, json);</span>
+<span class="nc" id="L39">        FeatureCollection featureCollection = FeatureCollection.fromJSON(json);</span>
+<span class="nc" id="L40">        model.addAttribute(&quot;featureCollection&quot;,featureCollection);</span>
+<span class="nc" id="L41">        return &quot;earthquakes/results&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
