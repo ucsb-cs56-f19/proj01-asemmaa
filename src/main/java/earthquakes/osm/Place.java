@@ -20,6 +20,14 @@ public class Place {
     public String display_name;
     public String type;
 
+     /**
+     * Create a list of Place objects from json representation
+     * 
+     * @param json String of json returned by API endpoint {@code /classes/search}
+     * @return a new List of Place objects 
+     * @see <a href=
+     *      "https://stackoverflow.com/a/6349488">https://stackoverflow.com/a/6349488</a>
+     */
     public static List<Place> listFromJson(String json) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
