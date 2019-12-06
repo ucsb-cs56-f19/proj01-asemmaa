@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -29,33 +30,40 @@ public class LocationsController {
     private LocationRepository locationRepository;
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
-<span class="nc" id="L32">    public LocationsController (LocationRepository locationRepository) {</span>
-<span class="nc" id="L33">        this.locationRepository = locationRepository;   </span>
-<span class="nc" id="L34">    }</span>
+<span class="nc" id="L33">    public LocationsController (LocationRepository locationRepository) {</span>
+<span class="nc" id="L34">        this.locationRepository = locationRepository;   </span>
+<span class="nc" id="L35">    }</span>
 
     @GetMapping(&quot;/locations/search&quot;)
     public String getLocationsSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
             LocSearch locSearch) {
-<span class="nc" id="L39">        return &quot;locations/search&quot;;</span>
+<span class="nc" id="L40">        return &quot;locations/search&quot;;</span>
     }
 
     @GetMapping(&quot;/locations/results&quot;)
     public String getLocationsResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
             LocSearch locSearch) {
-<span class="nc" id="L45">                LocationQueryService e = new LocationQueryService();</span>
-<span class="nc" id="L46">        model.addAttribute(&quot;locSearch&quot;, locSearch);</span>
-<span class="nc" id="L47">        String json = e.getJSON(locSearch.getLocation());</span>
-<span class="nc" id="L48">        model.addAttribute(&quot;json&quot;,json);</span>
-<span class="nc" id="L49">        List&lt;Place&gt; placeCollection = Place.listFromJson(json);</span>
-<span class="nc" id="L50">        model.addAttribute(&quot;placeCollection&quot;,placeCollection);</span>
+<span class="nc" id="L46">                LocationQueryService e = new LocationQueryService();</span>
+<span class="nc" id="L47">        model.addAttribute(&quot;locSearch&quot;, locSearch);</span>
+<span class="nc" id="L48">        String json = e.getJSON(locSearch.getLocation());</span>
+<span class="nc" id="L49">        model.addAttribute(&quot;json&quot;,json);</span>
+<span class="nc" id="L50">        List&lt;Place&gt; placeCollection = Place.listFromJson(json);</span>
+<span class="nc" id="L51">        model.addAttribute(&quot;placeCollection&quot;,placeCollection);</span>
 
-<span class="nc" id="L52">        return &quot;locations/results&quot;;</span>
+<span class="nc" id="L53">        return &quot;locations/results&quot;;</span>
     }
     @GetMapping(&quot;/locations&quot;)
     public String index(Model model) {
-<span class="nc" id="L56">        Iterable&lt;Location&gt; locations = locationRepository.findAll();</span>
-<span class="nc" id="L57">        model.addAttribute(&quot;locations&quot;, locations);</span>
-<span class="nc" id="L58">        return &quot;locations/index&quot;;</span>
+<span class="nc" id="L57">        Iterable&lt;Location&gt; locations = locationRepository.findAll();</span>
+<span class="nc" id="L58">        model.addAttribute(&quot;locations&quot;, locations);</span>
+<span class="nc" id="L59">        return &quot;locations/index&quot;;</span>
+    }
+    
+    @PostMapping(&quot;/locations/add&quot;)
+    public String add(Location location, Model model) {
+<span class="nc" id="L64">      locationRepository.save(location);</span>
+<span class="nc" id="L65">      model.addAttribute(&quot;locations&quot;, locationRepository.findAll());</span>
+<span class="nc" id="L66">      return &quot;locations/index&quot;;</span>
     }
 
 
