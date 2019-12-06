@@ -47,4 +47,5 @@ public class LocationQueryService {
         logger.info("from EarthquakeQueryService.getJSON: " + retVal);
         return retVal;
     }
+
 }
