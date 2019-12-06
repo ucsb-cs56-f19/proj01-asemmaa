@@ -1,4 +1,5 @@
 package earthquakes;
+
 /** 
  * Literals for testing whether Bootstrap is loaded correctly
  */

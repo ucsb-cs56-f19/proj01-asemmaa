@@ -15,37 +15,38 @@ import java.util.HashSet;
 
 
 /**
- *  * Utility methods for testing OAuth protected endpoints.
- *  * <a href="https://github.com/mark-hoogenboom/spring-boot-oauth-testing">
- *  * https://github.com/mark-hoogenboom/spring-boot-oauth-testing
- *  * </a>
- *  */
+ * Utility methods for testing OAuth protected endpoints.
+ * <a href="https://github.com/mark-hoogenboom/spring-boot-oauth-testing">
+ * https://github.com/mark-hoogenboom/spring-boot-oauth-testing
+ * </a>
+ */
 
 public class OAuthUtils {
-     public static OAuth2User createOAuth2User(String name, String email) {
 
-     Map<String, Object> authorityAttributes = new HashMap<>();
-     authorityAttributes.put("key", "value");
+    public static OAuth2User createOAuth2User(String name, String email) {
 
-     GrantedAuthority authority = new OAuth2UserAuthority(authorityAttributes);
+        Map<String, Object> authorityAttributes = new HashMap<>();
+        authorityAttributes.put("key", "value");
 
-     Map<String, Object> attributes = new HashMap<>();
-     attributes.put("sub", "1234567890");
-     attributes.put("name", name);
-     attributes.put("email", email);
+        GrantedAuthority authority = new OAuth2UserAuthority(authorityAttributes);
 
-     Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-     authorities.add(authority);
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("sub", "1234567890");
+        attributes.put("name", name);
+        attributes.put("email", email);
 
-     return new DefaultOAuth2User(authorities, attributes, "sub");
-     }
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        authorities.add(authority);
 
-     public static Authentication getOauthAuthenticationFor(OAuth2User principal) {
+        return new DefaultOAuth2User(authorities, attributes, "sub");
+    }
 
-          Collection<? extends GrantedAuthority> authorities = principal.getAuthorities();
+    public static Authentication getOauthAuthenticationFor(OAuth2User principal) {
 
-	  String authorizedClientRegistrationId = "my-oauth-client";
+        Collection<? extends GrantedAuthority> authorities = principal.getAuthorities();
 
-	  return new OAuth2AuthenticationToken(principal, authorities, authorizedClientRegistrationId);
-     }
+        String authorizedClientRegistrationId = "my-oauth-client";
+
+        return new OAuth2AuthenticationToken(principal, authorities, authorizedClientRegistrationId);
+    }
 }
