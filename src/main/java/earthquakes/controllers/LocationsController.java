@@ -27,8 +27,8 @@ import com.nimbusds.oauth2.sdk.client.ClientReadRequest;
 public class LocationsController {
 
     private LocationRepository locationRepository;
-    /@Autowired
-   // private ClientRegistrationRepository clientRegistrationRepository;
+    @Autowired
+    private ClientRegistrationRepository clientRegistrationRepository;
     public LocationsController (LocationRepository locationRepository) {
         this.locationRepository = locationRepository;   
     }
