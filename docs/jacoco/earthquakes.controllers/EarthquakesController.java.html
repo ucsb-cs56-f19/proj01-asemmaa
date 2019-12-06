@@ -30,7 +30,7 @@ import earthquakes.geojson.FeatureCollection;
     public String getEarthquakesResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken, EqSearch eqSearch) {
 <span class="nc" id="L31">    	EarthquakeQueryService e = new EarthquakeQueryService();</span>
 <span class="nc" id="L32">    	model.addAttribute(&quot;eqSearch&quot;, eqSearch);</span>
-<span class="nc" id="L33">    	String json = e.getJSON(eqSearch.getDistance(), eqSearch.getMinmag());</span>
+<span class="nc" id="L33">    	String json = e.getJSON(eqSearch.getDistance(), eqSearch.getMinmag(),eqSearch.getLat(),eqSearch.getLon());</span>
 <span class="nc" id="L34">    	model.addAttribute(&quot;json&quot;, json);</span>
 <span class="nc" id="L35">    	FeatureCollection featureCollection = FeatureCollection.fromJSON(json);</span>
 <span class="nc" id="L36">        model.addAttribute(&quot;featureCollection&quot;,featureCollection);</span>

@@ -15,33 +15,47 @@ import earthquakes.geojson.FeatureCollection;
 import earthquakes.services.LocationQueryService;
 import earthquakes.searches.LocSearch;
 import earthquakes.osm.Place;
+import earthquakes.entities.Location;
+import earthquakes.repositories.LocationRepository;
+
+
 import java.util.List;
 
 import com.nimbusds.oauth2.sdk.client.ClientReadRequest;
 
 @Controller
-<span class="nc" id="L23">public class LocationsController {</span>
+public class LocationsController {
 
+    private LocationRepository locationRepository;
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
+<span class="nc" id="L32">    public LocationsController (LocationRepository locationRepository) {</span>
+<span class="nc" id="L33">        this.locationRepository = locationRepository;   </span>
+<span class="nc" id="L34">    }</span>
 
     @GetMapping(&quot;/locations/search&quot;)
     public String getLocationsSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
             LocSearch locSearch) {
-<span class="nc" id="L31">        return &quot;locations/search&quot;;</span>
+<span class="nc" id="L39">        return &quot;locations/search&quot;;</span>
     }
 
     @GetMapping(&quot;/locations/results&quot;)
     public String getLocationsResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
             LocSearch locSearch) {
-<span class="nc" id="L37">                LocationQueryService e = new LocationQueryService();</span>
-<span class="nc" id="L38">        model.addAttribute(&quot;locSearch&quot;, locSearch);</span>
-<span class="nc" id="L39">        String json = e.getJSON(locSearch.getLocation());</span>
-<span class="nc" id="L40">        model.addAttribute(&quot;json&quot;,json);</span>
-<span class="nc" id="L41">        List&lt;Place&gt; placeCollection = Place.listFromJson(json);</span>
-<span class="nc" id="L42">        model.addAttribute(&quot;placeCollection&quot;,placeCollection);</span>
+<span class="nc" id="L45">                LocationQueryService e = new LocationQueryService();</span>
+<span class="nc" id="L46">        model.addAttribute(&quot;locSearch&quot;, locSearch);</span>
+<span class="nc" id="L47">        String json = e.getJSON(locSearch.getLocation());</span>
+<span class="nc" id="L48">        model.addAttribute(&quot;json&quot;,json);</span>
+<span class="nc" id="L49">        List&lt;Place&gt; placeCollection = Place.listFromJson(json);</span>
+<span class="nc" id="L50">        model.addAttribute(&quot;placeCollection&quot;,placeCollection);</span>
 
-<span class="nc" id="L44">        return &quot;locations/results&quot;;</span>
+<span class="nc" id="L52">        return &quot;locations/results&quot;;</span>
+    }
+    @GetMapping(&quot;/locations&quot;)
+    public String index(Model model) {
+<span class="nc" id="L56">        Iterable&lt;Location&gt; locations = locationRepository.findAll();</span>
+<span class="nc" id="L57">        model.addAttribute(&quot;locations&quot;, locations);</span>
+<span class="nc" id="L58">        return &quot;locations/index&quot;;</span>
     }
 
 
